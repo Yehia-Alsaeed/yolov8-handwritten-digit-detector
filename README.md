@@ -27,9 +27,20 @@ The final validation run reported strong performance on the HashiDigits validati
 
 These results are strongest on images that match the training distribution. Real-world handwriting can still be affected by lighting, contrast, stroke thickness, image resolution, and handwriting style.
 
+## Prediction Examples
+
+| Dataset-style sample | Multi-digit sample | Real handwriting sample |
+| --- | --- | --- |
+| <img src="docs/assets/prediction-hashidigits-sample.png" alt="YOLOv8 prediction on a HashiDigits sample" width="180"> | <img src="docs/assets/prediction-multi-digit-sample.png" alt="YOLOv8 prediction on a handwritten multi-digit sample" width="180"> | <img src="docs/assets/prediction-real-handwriting-7.png" alt="YOLOv8 prediction on a real handwritten digit 7" width="220"> |
+
 ## Repository Structure
 
 ```text
+docs/
+  assets/
+    prediction-hashidigits-sample.png       model prediction on a dataset-style image
+    prediction-multi-digit-sample.png       model prediction on a multi-digit image
+    prediction-real-handwriting-7.png       model prediction on a real handwriting image
 notebooks/
   yolov8_handwritten_digit_detection.ipynb   training, evaluation, inference, and visualization workflow
 models/
@@ -119,7 +130,3 @@ The notebook follows this progression:
 - Matplotlib
 - Pillow
 - Jupyter Notebook
-
-## Notes
-
-This is a portfolio-focused version of the project. The repository includes the notebook, trained checkpoint, dataset configuration, and small inference examples, while large generated artifacts and the full dataset are excluded.
