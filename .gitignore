@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Local datasets and exports
+data/
+train/
+valid/
+test/
+*.zip
+*.cache
+
+# Training artifacts
+runs/
+wandb/
+*.log
+pred_*.jpg
+
+# Model weights
+*.pt
+!models/best.pt
+
+# Reports and local documents
+*.pdf
+*.docx
+*.pptx
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
