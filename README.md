@@ -22,6 +22,19 @@ The project utilizes transfer learning to fine-tune a `YOLOv8n` base model to re
 4. **Advanced Augmentation:** Increased the image resolution to `640px` and enabled advanced data augmentation to improve model robustness and generalization against real-world handwriting variations.
 5. **Inference & Validation:** Loaded the best performing checkpoint and ran inference across dataset samples, multi-digit clusters, and challenging real-world handwritten captures.
 
+## Dataset Overview
+
+The project uses the HashiDigits dataset from Roboflow Universe:
+[HashiDigits Dataset](https://universe.roboflow.com/hashiwokakero-digits/hashidigits/dataset/2)
+
+**Dataset Summary:**
+- 10,000 labeled images total
+- 6,999 training images
+- 2,001 validation images
+- 1,000 test images
+- YOLOv8 annotation format
+- License: CC BY 4.0
+
 ## Results & Visuals
 
 The final validation run reported exceptional performance on the HashiDigits validation split:
