@@ -1,22 +1,30 @@
 # YOLOv8 Handwritten Digit Detector
 
-A computer vision project for detecting and classifying handwritten digit instances with YOLOv8. The model is trained on the HashiDigits dataset and packaged with a small trained checkpoint plus example images for quick inference.
+A fully functional computer vision pipeline for detecting and classifying handwritten digit instances with YOLOv8. The model is trained on the HashiDigits dataset and packaged with a small trained checkpoint plus example images for quick inference.
 
-This project treats digit recognition as an object detection problem rather than only an image classification problem. That means the model predicts both the digit class and its bounding box location, which is useful when an image contains multiple handwritten digits.
+This pipeline treats digit recognition as an object detection problem rather than only an image classification problem. That means the model predicts both the digit class and its bounding box location, which is exceptionally useful when an image contains multiple handwritten digits.
 
-## Highlights
+## Tech Stack & Core Skills
 
-- Fine-tunes `YOLOv8n` with transfer learning.
-- Detects handwritten digit classes `1` through `8`.
-- Uses the HashiDigits YOLOv8 dataset format.
-- Trains in staged runs with 416px images, then improves with 640px images and augmentation.
-- Includes a trained `best.pt` checkpoint for direct inference.
-- Includes small example images for testing without downloading the full dataset.
-- Keeps the full dataset, training runs, cache files, and reports out of Git.
+- **Deep Learning Frameworks:** PyTorch, Ultralytics YOLOv8
+- **Computer Vision:** OpenCV, Object Detection, Bounding Box Regression
+- **Data Engineering:** Data Augmentation, Transfer Learning
+- **Languages & Libraries:** Python, Pandas, Matplotlib, Pillow
 
-## Results
+## Methodology & Training Workflow
 
-The final validation run reported strong performance on the HashiDigits validation split:
+The project utilizes transfer learning to fine-tune a `YOLOv8n` base model to recognize handwritten digits (`1` through `8`).
+
+**Training Strategy:**
+1. **Base Initialization:** Loaded pretrained `YOLOv8n` weights to leverage generalized visual features.
+2. **Initial Training:** Trained the network on the HashiDigits dataset using an image size of `416px` for rapid convergence.
+3. **Iterative Refinement:** Resumed training from intermediate checkpoints.
+4. **Advanced Augmentation:** Increased the image resolution to `640px` and enabled advanced data augmentation to improve model robustness and generalization against real-world handwriting variations.
+5. **Inference & Validation:** Loaded the best performing checkpoint and ran inference across dataset samples, multi-digit clusters, and challenging real-world handwritten captures.
+
+## Results & Visuals
+
+The final validation run reported exceptional performance on the HashiDigits validation split:
 
 | Metric | Value |
 | --- | ---: |
@@ -25,9 +33,9 @@ The final validation run reported strong performance on the HashiDigits validati
 | mAP50 | 99.5% |
 | mAP50-95 | 99.1% |
 
-These results are strongest on images that match the training distribution. Real-world handwriting can still be affected by lighting, contrast, stroke thickness, image resolution, and handwriting style.
+*Note: Real-world handwriting inference can still be affected by extreme lighting, low contrast, unusual stroke thickness, or severe resolution drops.*
 
-## Prediction Examples
+**Prediction Examples:**
 
 | Dataset-style sample | Multi-digit sample | Real handwriting sample |
 | --- | --- | --- |
@@ -36,97 +44,19 @@ These results are strongest on images that match the training distribution. Real
 ## Repository Structure
 
 ```text
-docs/
-  assets/
-    prediction-hashidigits-sample.png       model prediction on a dataset-style image
-    prediction-multi-digit-sample.png       model prediction on a multi-digit image
-    prediction-real-handwriting-7.png       model prediction on a real handwriting image
+docs/assets/                                 Prediction screenshots
 notebooks/
-  yolov8_handwritten_digit_detection.ipynb   training, evaluation, inference, and visualization workflow
+  yolov8_handwritten_digit_detection.ipynb   Main training, evaluation, and inference workflow
 models/
-  best.pt                                    trained YOLOv8 checkpoint
-examples/
-  hashidigits-sample.jpg                     dataset-style sample input
-  multi-digit-sample.jpg                     handwritten multi-digit example
-  real-handwriting-7.jpeg                    real handwriting example
-  small-handwriting-sample.jpeg              small handwriting example
-data.yaml                                    expected YOLO dataset configuration
+  best.pt                                    Final trained YOLOv8 checkpoint
+examples/                                    Test images for immediate inference validation
+data.yaml                                    YOLO dataset configuration mapping
 requirements.txt                            Python dependencies
 ```
 
-## Dataset
+## Requirements & Setup
 
-The project uses the HashiDigits dataset from Roboflow Universe:
-
-https://universe.roboflow.com/hashiwokakero-digits/hashidigits/dataset/2
-
-Dataset summary:
-
-- 10,000 labeled images
-- 6,999 training images
-- 2,001 validation images
-- 1,000 test images
-- YOLOv8 annotation format
-- License: CC BY 4.0
-
-The full dataset is not committed to this repository. To retrain the model, download the dataset and place it under a local `data/` directory using this structure:
-
-```text
-data/
-  train/
-    images/
-    labels/
-  valid/
-    images/
-    labels/
-  test/
-    images/
-    labels/
-```
-
-The included `data.yaml` points to that layout.
-
-## Setup
-
-Create and activate a Python environment, then install the dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
-## Quick Inference
-
-Use the included trained checkpoint:
-
-```python
-from ultralytics import YOLO
-
-model = YOLO("models/best.pt")
-results = model.predict(source="examples/real-handwriting-7.jpeg", save=True)
-```
-
-Prediction images are saved by Ultralytics under `runs/detect/`.
-
-## Training Workflow
-
-The notebook follows this progression:
-
-1. Load `YOLOv8n` pretrained weights.
-2. Train on HashiDigits with image size `416`.
-3. Resume training from the latest checkpoint.
-4. Continue training for additional epochs.
-5. Increase image size to `640` and enable augmentation.
-6. Load the best trained checkpoint.
-7. Run inference on dataset-style and real handwritten examples.
-8. Plot training accuracy using `mAP50`.
-
-## Technical Stack
-
-- Python
-- Ultralytics YOLOv8
-- PyTorch
-- OpenCV
-- Pandas
-- Matplotlib
-- Pillow
-- Jupyter Notebook
+If you wish to run this pipeline locally:
+- Install dependencies via `pip install -r requirements.txt`.
+- The full 10,000-image dataset is not committed. To retrain, you must acquire the HashiDigits dataset (YOLOv8 format) and place it under a local `data/` directory matching the structure in `data.yaml`.
+- For quick inference, load the provided `models/best.pt` checkpoint using the Ultralytics Python API.
